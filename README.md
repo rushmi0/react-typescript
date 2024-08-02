@@ -1,30 +1,45 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + Tailwind CSS + daisyUI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+### เอกสารข้อมูลเพิ่มเติม
+ - [Tailwind CSS](https://tailwindcss.com/docs/guides/vite)
+ - [daisyUI](https://daisyui.com/docs/install/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ขั้นตอนติดตั้ง Tailwind CSS + daisyUI
 
-## Expanding the ESLint configuration
+เปิด Terminal แล้วรันคำสั่งชุดนี้
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+```shell
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+npm i -D daisyui@latest
+```
 
-- Configure the top-level `parserOptions` property like this:
+สร้างไฟล์กำหนดค่า `tailwind.config.js` แล้วเพิ่มเนื้อหาดังนี้
 
 ```js
+/** @type {import('tailwindcss').Config} */
 export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
+    content: [
+        "./index.html",
+        "./src/**/*.{js,ts,jsx,tsx}",
+    ],
+    theme: {
+        extend: {},
+    },
+    plugins: [
+        require('daisyui'),
+    ],
+    daisyui: {
+        themes: [false],
+    },
 }
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+ปรับแก้ไขเนื้อหาทั้งหมดที่ `./src/index.css`แล้วแทนที่ด้วยคำสั่งชุดนี้
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
